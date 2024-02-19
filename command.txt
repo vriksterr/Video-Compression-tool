@@ -1,0 +1,1 @@
+-c:v h264_cuvid, -map 0 -c:v hevc_nvenc -cq:v 19 -b:v 999k -minrate 699k -maxrate 1298k -bufsize 1998k -spatial_aq:v 1 -rc-lookahead:v 32 -c:a copy -c:s copy -max_muxing_queue_size 9999
