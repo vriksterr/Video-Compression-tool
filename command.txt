@@ -1,2 +1,9 @@
 //uses gpu for converting any video to hvec and audio to aac witout loosing any audio options or subs
 -hwaccel cuvid <io> -map 0 -c:v hevc_nvenc -preset medium -b:v 6000k -minrate 4000k -maxrate 16000k -bufsize 16000k -c:a aac -c:s mov_text
+
+
+//this is usefull for just audio and video and no subtitles
+ffmpeg -hwaccel cuvid -i danger.mkv -map 0:v -map 0:a -c:v hevc_nvenc -preset medium -b:v 3000k -minrate 2000k -maxrate 16000k -bufsize 16000k -c:a aac o.mp4
+
+//to extract .ass subtitles
+ffmpeg -i danger.mkv -c:s copy output_subtitle.ass
