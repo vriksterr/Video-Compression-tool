@@ -1,3 +1,5 @@
+FFMPEG Commands:
+
 //uses gpu for converting any video to hvec and audio to aac witout loosing any audio options or subs
 -hwaccel cuvid <io> -map 0 -c:v hevc_nvenc -preset medium -b:v 6000k -minrate 4000k -maxrate 16000k -bufsize 16000k -c:a aac -c:s mov_text
 
