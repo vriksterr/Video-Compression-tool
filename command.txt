@@ -9,3 +9,7 @@ ffmpeg -hwaccel cuvid -i danger.mkv -map 0:v -map 0:a -c:v hevc_nvenc -preset me
 
 //to extract .ass subtitles
 ffmpeg -i danger.mkv -c:s copy output_subtitle.ass
+
+
+//to change it to diff resolution
+ffmpeg -hwaccel cuvid -i 4K_vp9_opus_mkv_Original.mkv -vf "scale_cuda=1920:1080" -c:v av1_nvenc -preset fast -b:v 16000k -minrate 1000k -maxrate 16000k -bufsize 32000k -c:a aac -c:s copy 1080p.mkv
