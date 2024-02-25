@@ -1,5 +1,18 @@
 FFMPEG Commands:
 
+/* Main */
+ffmpeg -hwaccel cuvid -i land.mkv -map 0 -c:v hevc_nvenc -preset fast -bf 5 -rc cbr -b:v 4000k -minrate 4000k -maxrate 4000k -bufsize 16000k -c:a copy -c:s copy land40005cbr.mkv   //cbr -bf 0 to 5 max = better compression
+ffmpeg -hwaccel cuvid -i avatar.mkv -map 0 -c:v hevc_nvenc -preset fast -bf 5 -rc vbr -b:v 4096k -minrate 1k -maxrate 32768k -bufsize 65536k -c:a copy -c:s copy avatarcompressed.mkv  //vbr
+ffmpeg -hwaccel cuvid -i avatar.mkv -map 0 -c:v av1_nvenc -preset fast -bf 5 -rc vbr -b:v 4096k -minrate 1k -maxrate 32768k -bufsize 65536k -c:a aac -b:a 192k -c:s copy avatar2compressed.mkv    //with audio compression
+
+
+/* other commands */
+
+//from one timespamp to another
+ffmpeg -hwaccel cuvid -ss [start_time] -t [duration] -i avatar.mkv -map 0 -c:v hevc_nvenc -preset fast -bf 5 -rc vbr -b:v 4000k -minrate 500k -maxrate 30000k -bufsize 100000k -c:a copy -c:s copy o.mkv    //here start_time = from what time, duration = for how long For example, to transcode from 10 minutes into the video for a duration of 5 minutes, you would use -ss 00:10:00 -t 00:05:00.
+ffmpeg -hwaccel cuvid -ss 00:12:22 -to 00:15:13 -i avatar.mkv -map 0 -c:v hevc_nvenc -preset fast -bf 5 -rc vbr -b:v 16000k -minrate 2000k -maxrate 30000k -bufsize 60000k -c:a copy -c:s copy avatartest.mkv   //here you have to put actual time stamp
+
+
 //uses gpu for converting any video to hvec and audio to aac witout loosing any audio options or subs
 -hwaccel cuvid <io> -map 0 -c:v hevc_nvenc -preset medium -b:v 6000k -minrate 4000k -maxrate 16000k -bufsize 16000k -c:a aac -c:s mov_text
 
@@ -13,3 +26,14 @@ ffmpeg -i danger.mkv -c:s copy output_subtitle.ass
 
 //to change it to diff resolution
 ffmpeg -hwaccel cuvid -i 4K_vp9_opus_mkv_Original.mkv -vf "scale_cuda=1920:1080" -c:v av1_nvenc -preset fast -b:v 16000k -minrate 1000k -maxrate 16000k -bufsize 32000k -c:a aac -c:s copy 1080p.mkv
+
+//one with CRF
+ffmpeg -i file.ts -vf scale=1920:1080 map 0:a -map 0:s? -map 0:v -c:a copy -c:s copy -c:v libx265 -preset slower -crf 18 -t 00:15:00 output.mp4 
+
+//to add film grain
+ffmpeg -i input.mp4 -c:v av1_nvenc -filmgrain 1 output.mp4
+ffmpeg -i input.mp4 -c:v av1_nvenc -film-grain-denoise=0 -filmgrain 1 output.mp4
+
+
+read this source
+https://forums.developer.nvidia.com/t/nvenc-ffmpeg-plugin-cbr-options/81654
