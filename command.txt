@@ -34,6 +34,12 @@ ffmpeg -i file.ts -vf scale=1920:1080 map 0:a -map 0:s? -map 0:v -c:a copy -c:s 
 ffmpeg -i input.mp4 -c:v av1_nvenc -filmgrain 1 output.mp4
 ffmpeg -i input.mp4 -c:v av1_nvenc -film-grain-denoise=0 -filmgrain 1 output.mp4
 
+//Notes
+when video is either being transcoded by ffmpeg or being played in vlc the bitrate shown
+will also total bitrate which is video and audio.
+
 
 read this source
 https://forums.developer.nvidia.com/t/nvenc-ffmpeg-plugin-cbr-options/81654
+https://www.youtube.com/watch?v=ldR84yty14s
+https://www.youtube.com/watch?v=05P8MnjX1So
