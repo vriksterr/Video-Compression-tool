@@ -10,7 +10,7 @@ ffmpeg -hwaccel cuvid -i avatar.mkv -map 0 -c:v av1_nvenc -preset fast -bf 5 -rc
 
 //quality preset
 ffmpeg -hwaccel cuvid -i input.mp4 -c:v h264_nvenc -rc vbr -cq:v 23 -qmin:v 19 -qmax:v 27 -b:v 0 -c:a copy output.mp4
-
+ffmpeg -hwaccel cuvid -i urismall.mp4 -map 0 -c:v hevc_nvenc -preset slow -bf 0 -rc constqp -qp 24 -b:v 0K -c:a copy -c:s copy urismallcompressed.mkv
 
 //from one timespamp to another
 ffmpeg -hwaccel cuvid -ss [start_time] -t [duration] -i avatar.mkv -map 0 -c:v hevc_nvenc -preset fast -bf 5 -rc vbr -b:v 4000k -minrate 500k -maxrate 30000k -bufsize 100000k -c:a copy -c:s copy o.mkv    //here start_time = from what time, duration = for how long For example, to transcode from 10 minutes into the video for a duration of 5 minutes, you would use -ss 00:10:00 -t 00:05:00.
