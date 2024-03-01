@@ -4,7 +4,7 @@ FFMPEG Commands:
 ffmpeg -hwaccel cuvid -i land.mkv -map 0 -c:v hevc_nvenc -preset fast -bf 5 -rc cbr -b:v 4000k -minrate 4000k -maxrate 4000k -bufsize 16000k -c:a copy -c:s copy land40005cbr.mkv   //cbr -bf 0 to 5 max = better compression
 ffmpeg -hwaccel cuvid -i avatar.mkv -map 0 -c:v hevc_nvenc -preset fast -bf 5 -rc vbr -b:v 4096k -minrate 1k -maxrate 32768k -bufsize 65536k -c:a copy -c:s copy avatarcompressed.mkv  //vbr
 ffmpeg -hwaccel cuvid -i avatar.mkv -map 0 -c:v av1_nvenc -preset fast -bf 5 -rc vbr -b:v 4096k -minrate 1k -maxrate 32768k -bufsize 65536k -c:a aac -b:a 192k -c:s copy avatar2compressed.mkv    //with audio compression
-
+ffmpeg -i avatar.mkv -map 0 -c:v av1_nvenc -preset 1 -bf 5 -rc vbr -b:v 4000k -minrate 1k -maxrate 32768k -bufsize 65536k -c:a copy -c:s copy avatarcompressed.mkv  //with preset as number 
 
 /* other commands */
 
